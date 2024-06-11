@@ -17,5 +17,14 @@
 	file(GLOB MAIN_SRC ${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp) 或file(GLOB MAIN_SRC "${CMAKE_CURRENT_SOURCE_DIR}/src/*.cpp") 
 	file(GLOB MAIN_HEAD ${CMAKE_CURRENT_SOURCE_DIR}/include/*.h) 或 同上表述
 ]]
+cmake_minimum_required(VERSION 3.20)
+project(BuriedExample)
+
+add_definitions(-D_WIN32_WINNT=0x0601)
+include_directories(. .. ../src ../src/context ../src/third_package ../src/third_package/spdlog/include ../src/third_package/boost)
+
 add_executable(buried_example buried_example.cc)
 target_link_libraries(buried_example Buried_static)
+
+add_executable(context_example context_example.cc)
+target_link_libraries(context_example Buried_static)
