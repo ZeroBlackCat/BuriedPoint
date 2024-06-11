@@ -15,11 +15,10 @@ set(DB_SRCS third_package/sqlite/sqlite3.c database/database.cc)
 
 set(BURIED_SRCS
 	${DB_SRCS}
-	crypt/crypt.cc
-	report/http_report.cc
-	report/buried_report.cc
-	common/common_service.cc
 	context/context.cc
+	crypt/crypt.cc
+	database/database.cc
+	report/http_report.cc
 	buried.cc
 	buried_core.cc
 )
@@ -35,12 +34,12 @@ message(STATUS "libs ${LIBS}")
 if(BUILD_BURIED_SHARED_LIBS)
 	add_library(${MODULE_NAME} SHARED ${BURIED_SRCS}) #类似add_executable，不过最终生成的是库文件libBuried.a/libBuried.dll，此处为动态库文件
 	set_target_properties(${MODULE_NAME} PROPERTIES COMPILE_FLAGS "/EHsc")
-	target_link_libraries(${MODULE_NAME} PRIVATE ${LIBS}) #该动态库需要依赖LIBS的库文件
+	target_link_libraries(${MODULE_NAME} PRIVATE ${LIBS} spdlog mbedtls_static) #该动态库需要依赖LIBS的库文件
 endif()
 
 #编译静态库
 if(BUILD_BURIED_STATIC_LIBS)
 	add_library(${MODULE_NAME}_static STATIC ${BURIED_SRCS})#类似add_executable，不过最终生成的是库文件libBuried.so/libBuried.lib，此处为静态库文件
 	set_target_properties(${MODULE_NAME} PROPERTIES COMPILE_FLAGS "/EHsc")
-	target_link_libraries(${MODULE_NAME} PRIVATE ${LIBS})
+	target_link_libraries(${MODULE_NAME} PRIVATE ${LIBS} spdlog mbedtls_static)
 endif()
