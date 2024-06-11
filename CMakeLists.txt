@@ -37,13 +37,13 @@ if(BUILD_BURIED_FOR_MT)
 endif()
 
 #相当于libs = libs + winmm + iphlpapi + ws2_32 +dbghelp
-set(LIBS ${LIBS} winmm iphlpapi ws2_32 dbghelp)
+set(LIBS ${LIBS} winmm iphlpapi ws2_32 dbghelp Kernel32)
 
 #生成pdb文件,该类文件记录了变量未知，函数地址等，唯有存在该文件才可进行debug
 set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}	/Zi")  #告诉C++编译器生成调试信息
 set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}		/Zi")	#C编译器生成调试信息
 set(CMAKE_SHARED_LINKER_FLAGS_RELEASE "${CMAKE_EXE_LINKER_FLAGS_RELEASE} /DEBUG /OPT:RED /OPT:ICF")
-
+set(CMAKE_CXX_FLAGS "/EHsc ${CMAKE_CXX_FLAGS}")
 set(INCDIRS . lib ${CMAKE_BINARY_DIR})
 include_directories(${INCDIRS})
 
