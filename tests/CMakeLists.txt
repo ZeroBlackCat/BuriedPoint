@@ -4,6 +4,7 @@ project(BuriedTest)
 include_directories(. ../src/third_package)
 
 set(TEST_SRC
+    test_common_service.cc
     test_crypt.cc
     test_http.cc
     test_db.cc
