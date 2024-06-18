@@ -10,11 +10,14 @@ add_definitions(-D_WIN32_WINNT=0x0601)
 add_subdirectory(third_package/spdlog)
 add_subdirectory(third_package/mbedtls/library)
 
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/buried_configure.h.in ${CMAKE_CURRENT_SOURCE_DIR}/buried_configure.h)
+
 set(DB_SRCS third_package/sqlite/sqlite3.c database/database.cc)
 
 
 set(BURIED_SRCS
 	${DB_SRCS}
+	common/common_service.cc
 	context/context.cc
 	crypt/crypt.cc
 	database/database.cc
